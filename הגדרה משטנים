@@ -72,3 +72,19 @@ void resetGame() {
   turnOffAllLeds();
 }
 
+void pickRandomLeds() {
+  bool alreadyChosen[AllLeds] = {false, false, false, false};
+  for (int i = 0; i < CHOSEN_LEDS; i++) {
+    int index;
+    do {
+      index = random(AllLeds);
+    } while (alreadyChosen[index]);
+    alreadyChosen[index] = true;
+    chosenLedIndices[i] = index;
+    digitalWrite(ledPins[index], HIGH);
+    delay(1000);
+    digitalWrite(ledPins[index], LOW);
+    delay(100);
+  }
+  delay(500); 
+}
