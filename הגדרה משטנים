@@ -38,3 +38,37 @@ void loop() {
   manageGameState();
 }
 
+void initializePins() {
+  for (int i = 0; i < AllLeds; i++) {
+    pinMode(ledPins[i], OUTPUT);
+    pinMode(buttonPins[i], INPUT_PULLUP);
+    previousButtonStates[i] = digitalRead(buttonPins[i]);
+    lastButtonPressTime[i] = millis();
+  }
+  pinMode(SoundPin, OUTPUT);
+}
+
+void manageGameState() {
+  if (isGameEnded) {
+    checkForNewGameStart();
+  } else if (!isGameStarted) {
+    startNewGame();
+  } else {
+    playGame();
+  }
+}
+
+void startNewGame() {
+  resetGame();
+  pickRandomLeds();
+  signalStart();
+}
+
+void resetGame() {
+  pressedButtonCount = 0;
+  gameStartTime = millis();
+  isGameStarted = true;
+  isGameEnded = false;
+  turnOffAllLeds();
+}
+
