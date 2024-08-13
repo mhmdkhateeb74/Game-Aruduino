@@ -1,0 +1,30 @@
+#define GreenLed 1
+#define YellowLed 2
+#define BlueLed 3
+#define RedLed 4
+
+#define GButton 5
+#define YButton 6
+#define BButton 7
+#define RButton 8
+
+#define SoundPin 5
+
+#define AllLeds 4
+#define CHOSEN_LEDS 3
+
+int ledPins[AllLeds] = {GreenLed, YellowLed, BlueLed, RedLed};
+int chosenLedIndices[CHOSEN_LEDS];
+int buttonPins[AllLeds] = {GButton, YButton, BButton, RButton};
+int buttonStates[AllLeds];
+int previousButtonStates[AllLeds];
+unsigned long lastButtonPressTime[AllLeds];
+int pressedButtonIndices[AllLeds];
+int pressedButtonCount = 0;
+unsigned long gameStartTime;
+unsigned long firstButtonPressTime;
+bool isGameStarted = false;
+bool isGameEnded = false;
+
+#define VICTORY_TONE 1000
+#define FAILURE_TONE 500
