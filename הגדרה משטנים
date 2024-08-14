@@ -110,3 +110,41 @@ void checkForNewGameStart() {
     startNewGame();
   }
 }
+
+void handleButtonPress(int buttonIndex) {
+  if (!isButtonAlreadyPressed(buttonIndex)) {
+    pressedButtonIndices[pressedButtonCount++] = buttonIndex;
+    digitalWrite(ledPins[buttonIndex], HIGH);
+  }
+
+  if (!isButtonInChosen(buttonIndex)) {
+    indicateFailure();
+    resetGame();
+  }
+}
+
+bool isButtonAlreadyPressed(int buttonIndex) {
+  for (int i = 0; i < pressedButtonCount; i++) {
+    if (pressedButtonIndices[i] == buttonIndex) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool isButtonInChosen(int buttonIndex) {
+  for (int i = 0; i < CHOSEN_LEDS; i++) {
+    if (chosenLedIndices[i] == buttonIndex) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void indicateFailure() {
+  tone(SoundPin, FAILURE_TONE, 500);
+  digitalWrite(RedLed, HIGH);
+  delay(1000);
+  digitalWrite(RedLed, LOW);
+  isGameEnded = true;
+}
