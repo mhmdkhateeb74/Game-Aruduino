@@ -166,3 +166,25 @@ void evaluateGameState() {
   }
 
 }
+
+bool areAllPressedButtonsCorrect() {
+  for (int i = 0; i < pressedButtonCount; i++) {
+    if (!isButtonInChosen(pressedButtonIndices[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void indicateVictory() {
+  tone( SoundPin, VICTORY_TONE, 500);
+  digitalWrite(GreenLed, HIGH);
+  delay(1000);
+  digitalWrite(GreenLed, LOW);
+}
+
+void turnOffAllLeds() {
+  for (int i = 0; i < AllLeds; i++) {
+    digitalWrite(ledPins[i], LOW);
+  }
+}
