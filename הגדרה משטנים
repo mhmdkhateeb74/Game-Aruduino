@@ -88,3 +88,25 @@ void pickRandomLeds() {
   }
   delay(500); 
 }
+void signalStart() {
+  tone(SoundPin, VICTORY_TONE, 100);
+  delay(150);
+}
+
+void playGame() {
+  int pressedButton = getPressedButton();
+  if (pressedButton > -1) {
+    if (pressedButtonCount == 0) {
+      firstButtonPressTime = millis();
+    }
+    handleButtonPress(pressedButton);
+  }
+  evaluateGameState();
+}
+
+void checkForNewGameStart() {
+  int pressedButton = getPressedButton();
+  if (pressedButton > -1) {
+    startNewGame();
+  }
+}
