@@ -148,3 +148,21 @@ void indicateFailure() {
   digitalWrite(RedLed, LOW);
   isGameEnded = true;
 }
+
+void evaluateGameState() {
+  unsigned long elapsedTime = millis() - firstButtonPressTime;
+
+  if (pressedButtonCount == CHOSEN_LEDS) {
+    if (areAllPressedButtonsCorrect()) {
+      if (elapsedTime <= 1000) {
+        indicateVictory();
+      } else {
+        indicateFailure();
+      }
+    } else {
+      indicateFailure();
+    }
+    isGameEnded = true;
+  }
+
+}
