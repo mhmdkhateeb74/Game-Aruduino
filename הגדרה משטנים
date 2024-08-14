@@ -188,3 +188,15 @@ void turnOffAllLeds() {
     digitalWrite(ledPins[i], LOW);
   }
 }
+int getPressedButton() {
+  int buttonPressed = -1;
+  for (int i = 0; i < AllLeds; i++) {
+    buttonStates[i] = digitalRead(buttonPins[i]);
+    if ((buttonStates[i] == LOW) && (previousButtonStates[i] == HIGH) && (millis() - lastButtonPressTime[i] > 50)) {
+      lastButtonPressTime[i] = millis();
+      buttonPressed = i;
+    }
+    previousButtonStates[i] = buttonStates[i];
+  }
+  return buttonPressed;
+}
